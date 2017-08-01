@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_8714_slack_integ.SlackMessage</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>SlackMessage</name>
+        <script><![CDATA[var SlackMessage = Class.create();
+ 
+SlackMessage.prototype = {
+    'initialize': function() {
+    },
+     
+    'send': function (text, channel) {
+		
+        // Set the text and channel (or fall back to defaults)
+        this.payload.text = text || this.payload.text;
+        this.payload.channel = channel || this.payload.channel;
+		channel = channel || this.payload.channel;
+		
+        
+		// Encode the payload as JSON
+        var myjson = new global.JSON();
+        var encoded_payload = myjson.encode(this.payload);
+         
+		// Create and send the REST Message
+			var msg = new sn_ws.RESTMessageV2();
+			msg.setEndpoint(this.endpoint(channel));
+			msg.setHttpMethod(this.method);
+			msg.setRequestBody(encoded_payload);
+			var res = msg.executeAsync();
+			return res;
+    },
+     
+    'endpoint': function (channel) {
+		var endpointGR = new GlideRecord("x_8714_slack_integ_slack_webhooks");
+		endpointGR.addQuery("channel", channel);
+		endpointGR.query();
+		
+		if (endpointGR.next()) {
+			return endpointGR.endpoint.toString();
+		}
+	},
+	
+    'method': 'post',
+    
+	'payload': {
+        'text': '',
+        'attachments': []
+    },
+     
+    'type': 'SlackMessage'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-07-25 04:43:59</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>21f841e7db440300733ff91ebf961920</sys_id>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>SlackMessage</sys_name>
+        <sys_package display_value="Slack Integration" source="x_8714_slack_integ">baf78d67db440300733ff91ebf96191f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Slack Integration">baf78d67db440300733ff91ebf96191f</sys_scope>
+        <sys_update_name>sys_script_include_21f841e7db440300733ff91ebf961920</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-08-01 23:11:02</sys_updated_on>
+    </sys_script_include>
+</record_update>

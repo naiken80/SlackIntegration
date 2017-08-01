@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>kb_knowledge</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="kb_knowledge">workflow_stateCHANGESTOpublished^EQ<item endquery="false" field="workflow_state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="published"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>New KB Article - Slack Alert Watcher</name>
+        <order>100</order>
+        <priority>1001</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+if (current.workflow_state.changesTo('published')) {
+
+	// Initialize a new SlackMessage
+	var slack = new SlackMessage();
+
+	// Set up the payload
+	slack.payload.channel = '#natetest';
+	slack.payload.text = 'A new knowledge article has been published!';
+	slack.payload.icon_emoji = ':exclamation:';
+	slack.payload.attachments.push({
+		'title': current.number.toString(),
+		'title_link': 'https://' + gs.getProperty('instance_name') + '.service-now.com/kb_view.do?sysparm_article=' + current.number,
+		'text': current.short_description.toString()
+	});
+	// Fire off the 
+		slack.send();
+}
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-07-25 04:29:41</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>016849a7db440300733ff91ebf961914</sys_id>
+        <sys_mod_count>37</sys_mod_count>
+        <sys_name>New KB Article - Slack Alert Watcher</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Slack Integration" source="x_8714_slack_integ">baf78d67db440300733ff91ebf96191f</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Slack Integration">baf78d67db440300733ff91ebf96191f</sys_scope>
+        <sys_update_name>sys_script_016849a7db440300733ff91ebf961914</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-08-01 23:11:07</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=016849a7db440300733ff91ebf961914"/>
+</record_update>
