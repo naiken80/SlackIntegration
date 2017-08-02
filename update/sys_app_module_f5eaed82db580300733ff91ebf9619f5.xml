@@ -2,7 +2,7 @@
 <record_update sys_domain="global" table="sys_app_module">
     <sys_app_module action="INSERT_OR_UPDATE">
         <active>true</active>
-        <application display_value="Knowledge Base Subscriptions">fdeaed82db580300733ff91ebf9619f2</application>
+        <application display_value="Slack Integration">c8edc16bdb440300733ff91ebf9619e7</application>
         <assessment/>
         <content_page/>
         <device_type/>
@@ -29,7 +29,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>f5eaed82db580300733ff91ebf9619f5</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>Knowledge Base Subscriptions</sys_name>
         <sys_overrides/>
         <sys_package display_value="Slack Integration" source="x_8714_slack_integ">baf78d67db440300733ff91ebf96191f</sys_package>
@@ -38,7 +38,7 @@
         <sys_scope display_value="Slack Integration">baf78d67db440300733ff91ebf96191f</sys_scope>
         <sys_update_name>sys_app_module_f5eaed82db580300733ff91ebf9619f5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-08-02 01:24:27</sys_updated_on>
+        <sys_updated_on>2017-08-02 03:14:42</sys_updated_on>
         <timeline_page/>
         <title>Knowledge Base Subscriptions</title>
         <uncancelable>false</uncancelable>
