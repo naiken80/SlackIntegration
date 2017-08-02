@@ -31,23 +31,16 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-
-if (current.workflow_state.changesTo('published')) {
+var gdt1 = GlideDateTime(previous.sys_updated_on);
+var gdt2 = GlideDateTime(current.sys_updated_on);
+var datediff = (gdt2.getNumericValue() - gdt1.getNumericValue());
+if (current.workflow_state.changesTo('published') && (datediff >= 5)) {
 
 	// Initialize a new SlackMessage
 	var slack = new SlackMessage();
-
-	// Set up the payload
-	slack.payload.channel = '#natetest';
-	slack.payload.text = 'A new knowledge article has been published!';
-	slack.payload.icon_emoji = ':exclamation:';
-	slack.payload.attachments.push({
-		'title': current.number.toString(),
-		'title_link': 'https://' + gs.getProperty('instance_name') + '.service-now.com/kb_view.do?sysparm_article=' + current.number,
-		'text': current.short_description.toString()
-	});
-	// Fire off the 
-		slack.send();
+	
+	slack.sendKB(current);
+		
 }
 
 })(current, previous);]]></script>
@@ -58,7 +51,7 @@ if (current.workflow_state.changesTo('published')) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>016849a7db440300733ff91ebf961914</sys_id>
-        <sys_mod_count>37</sys_mod_count>
+        <sys_mod_count>70</sys_mod_count>
         <sys_name>New KB Article - Slack Alert Watcher</sys_name>
         <sys_overrides/>
         <sys_package display_value="Slack Integration" source="x_8714_slack_integ">baf78d67db440300733ff91ebf96191f</sys_package>
@@ -67,7 +60,7 @@ if (current.workflow_state.changesTo('published')) {
         <sys_scope display_value="Slack Integration">baf78d67db440300733ff91ebf96191f</sys_scope>
         <sys_update_name>sys_script_016849a7db440300733ff91ebf961914</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-08-01 23:11:07</sys_updated_on>
+        <sys_updated_on>2017-08-02 02:29:50</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

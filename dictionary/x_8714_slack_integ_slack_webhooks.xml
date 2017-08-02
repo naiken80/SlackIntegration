@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <element label="Slack Webhooks" max_length="40" name="x_8714_slack_integ_slack_webhooks" type="collection">
-        <element label="Channel" max_length="40" name="channel" type="string"/>
+        <element display="true" label="Channel" max_length="40" name="channel" type="string"/>
         <element label="Endpoint" max_length="500" name="endpoint" type="string"/>
     </element>
 </database>

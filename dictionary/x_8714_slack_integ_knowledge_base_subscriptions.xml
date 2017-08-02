@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Knowledge Base Subscriptions" max_length="40" name="x_8714_slack_integ_knowledge_base_subscriptions" type="collection">
+        <element label="Knowledge Category" max_length="32" name="knowledge_category" reference="kb_category" type="reference"/>
+        <element label="Slack Channel" max_length="32" name="slack_channel" reference="x_8714_slack_integ_slack_webhooks" type="reference"/>
+        <index name="index">
+            <element name="slack_channel"/>
+        </index>
+        <index name="index2">
+            <element name="knowledge_category"/>
+        </index>
+    </element>
+</database>
